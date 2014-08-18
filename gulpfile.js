@@ -24,29 +24,17 @@ gulp.task('styles_dev', function()
 
 gulp.task('dev', function()
 {
-    var server = livereload();
+    var server = livereload.listen();
 
     gulp.watch(path.source + '/scss/**/*.scss', ['styles_dev']);
 
-    gulp.watch(path.source + '/css/*.css').on('change', function(file)
-    {
-        server.changed(file.path);
-    });
+    gulp.watch(path.source + '/css/*.css').on('change', livereload.changed);
 
-    gulp.watch(path.source + '/js/**/**/*.js').on('change', function(file)
-    {
-        server.changed(file.path);
-    });
+    gulp.watch(path.source + '/js/**/**/*.js').on('change', livereload.changed);
 
-    gulp.watch(path.source + '/img/*').on('change', function(file)
-    {
-        server.changed(file.path);
-    });
+    gulp.watch(path.source + '/img/*').on('change', livereload.changed);
 
-    gulp.watch(path.source + '/**/*.html').on('change', function(file)
-    {
-        server.changed(file.path);
-    });
+    gulp.watch(path.source + '/**/**/*.html').on('change', livereload.changed);
 });
 
 // Default task
